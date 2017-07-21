@@ -10,12 +10,20 @@
 </head>
 
 <body>
+    <?php
+        echo 'ajax';
+    ?>
     <button id="btnLoad">LOAD</button>
-    <div id="viewBox">
-    </div>
+    <div id="viewBox"></div>
     <script>
         $(document).ready(function () {
-            $('#btnLoad').on('click', loadDoc);
+            $('#btnLoad').on('click', function(){
+                if ( !$('p').length ) {
+                    loadDoc();
+                } else {
+                    alert('aleady loading');
+                }
+            });
         });
 
         function loadDoc() {
@@ -26,14 +34,15 @@
                 cache: false,
                 success: function (data) {
 
-                    arrView = [];
+                    //arrView = [];
 
                     for (var i = 0; i < data.dataList.length; i++) {
                         str = '<p>' + data.dataList[i].num + ': ' + data.dataList[i].title + '</p>\n';
-                        arrView.push(str);
+                        //arrView.push(str);
+                        $("#viewBox").append(str);
                     }
 
-                    $("#viewBox").html(arrView);
+                    //$("#viewBox").html(arrView);
 
                     // $.each(data.dataList, function (index) {
                     //     $('li').eq(index).html(data.dataList[index].val);
